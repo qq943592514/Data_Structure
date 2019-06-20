@@ -1,0 +1,207 @@
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+public class SeqList implements List {
+	final int defaultSize = 10;
+
+	int maxSize;
+	int size;
+	Object[] listArray;
+
+	public SeqList() {
+		initiate(defaultSize);
+	}
+
+	public SeqList(int size) {
+		initiate(size);
+	}
+
+	private void initiate(int sz) {
+		maxSize = sz;
+		size = 0;
+		listArray = new Object[sz];
+
+	}
+
+	public void insert(int i, Object obj) throws Exception {
+		// TODO 自动生成的方法存根
+		if (size == maxSize) {
+			throw new Exception("顺序表已满无法插入！");
+		}
+		if (i < 0 || i > size) {
+			throw new Exception("参数错误！");
+		}
+
+		for (int j = size; j > i; j--)
+			listArray[j] = listArray[j - 1];
+
+		listArray[i] = obj;
+		size++;
+
+	}
+
+	public Object delete(int i) throws Exception {
+		// TODO 自动生成的方法存根
+		if (size == 0) {
+			throw new Exception("顺序表已空无法删除！");
+		}
+		if (i < 0 || i > size - 1) {
+			throw new Exception("参数错误！");
+		}
+		Object it = listArray[i];
+		for (int j = i; j < size - 1; j++)
+			listArray[j] = listArray[j + 1];
+
+		size--;
+		return it;
+	}
+
+	public Object getData(int i) throws Exception {
+		// TODO 自动生成的方法存根
+		if (i < 0 || i >= size) {
+			throw new Exception("参数错误！");
+		}
+		return listArray[i];
+	}
+
+	@Override
+	public int size() {
+		// TODO 自动生成的方法存根
+		return size;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO 自动生成的方法存根
+		return size == 0;
+	}
+
+	@Override
+	public boolean add(Object e) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public void add(int index, Object element) {
+		// TODO 自动生成的方法存根
+
+	}
+
+	@Override
+	public boolean addAll(Collection c) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean addAll(int index, Collection c) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public void clear() {
+		// TODO 自动生成的方法存根
+
+	}
+
+	@Override
+	public boolean contains(Object o) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean containsAll(Collection c) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public Object get(int index) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public int indexOf(Object o) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	@Override
+	public Iterator iterator() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public int lastIndexOf(Object o) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	@Override
+	public ListIterator listIterator() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public ListIterator listIterator(int index) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public boolean remove(Object o) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public Object remove(int index) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public boolean removeAll(Collection c) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean retainAll(Collection c) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public Object set(int index, Object element) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public List subList(int fromIndex, int toIndex) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public Object[] toArray() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public Object[] toArray(Object[] a) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+}
