@@ -1,0 +1,154 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+public class SeqListTest {
+	static boolean exchange;
+	static int s;
+
+	public static void main(String[] args) throws Exception {
+
+		SeqList seqList = new SeqList(200);// 初始化顺序表
+		Student[] student;
+		student = new Student[200];
+		student[0] = new Student("M1", 68.0);
+		student[1] = new Student("M2", 70.0);
+		student[2] = new Student("M4", 73.0);
+		student[3] = new Student("M5", 76.0);
+		student[4] = new Student("M7", 78.0);
+		student[5] = new Student("M8", 80.0);
+		student[6] = new Student("M10", 83.0);
+		student[7] = new Student("M12", 85.0);
+		student[8] = new Student("M13", 86.0);
+		student[9] = new Student("M14", 87.0);
+
+		int n = 10;
+		try {
+			for (int i = 0; i < n; i++) {
+				seqList.insert(i, student[i]);
+			}
+			for (int i = 0; i < seqList.size; i++) {
+				Student st = (Student) seqList.getData(i);
+				System.out.println(st.getName() + " " + st.getScore());
+			}
+
+			// 添加三个学生
+			System.out.println("接下来添加三个学生，一个分数为45，一个分数为88，一个分数为75。");
+			student[10] = new Student("M15", 45);
+			student[11] = new Student("M16", 88);
+			student[12] = new Student("M17", 75);
+			seqList.insert(10, student[10]);
+			seqList.insert(11, student[11]);
+			seqList.insert(12, student[12]);
+			sort(seqList);
+			if (exchange) {
+				System.out.println("添加后顺序表中的学生信息没有以成绩为序非递减排列。");
+			}
+
+			System.out.print("请输入字母选择功能，1添加元素，2删除元素，3显示顺序表中所有元素，输入！退出程序");
+			Scanner reader = new Scanner(System.in);
+			while (reader.hasNextDouble()) {
+				s = reader.nextInt();
+				if (s == 1) {
+					// 添加元素
+					double num;
+					String str, str2, str3;
+					BufferedReader buf;
+					buf = new BufferedReader(new InputStreamReader(System.in));
+					System.out.print("请输入学生的名字：");
+					str = buf.readLine();
+					System.out.print("请输入学生的成绩：");
+					str2 = buf.readLine();
+					num = Double.parseDouble(str2);
+					System.out.println("您输入的学生数据为：" + str + "  " + num);
+					System.out.println("输入#确定将学生数据存入");
+					str3 = buf.readLine();
+					if (str3.equals("#")) {
+						student[seqList.size] = new Student(str, num);
+						seqList.insert(seqList.size, student[seqList.size]);
+						sort(seqList);
+						if (exchange) {
+							System.out.println("添加后顺序表中的学生信息没有以成绩为序非递减排列。");
+						}
+					}
+					// seqList = sort(seqList);
+
+				}
+				if (s == 2) {
+					// 删除元素
+					System.out.print("请输入要删除元素的位置");
+					int d = reader.nextInt();
+					seqList.delete(d - 1);
+					System.out.println("删除成功，现在全部显示出来");
+
+					for (int i = 0; i < seqList.size; i++) {
+						Student st = (Student) seqList.getData(i);
+						System.out.println(st.getName() + " " + st.getScore());
+					}
+
+				}
+				if (s == 3) {
+					System.out.println("显示顺序表中所有元素");
+					for (int i = 0; i < seqList.size; i++) {
+						Student st = (Student) seqList.getData(i);
+						System.out.println(st.getName() + " " + st.getScore());
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	public static void sort(SeqList seqList) throws Exception {
+
+		// 排序
+		SeqList t = new SeqList(200);
+		// t.insert(0, seqList.getData(0));
+		// Student st3 = (Student) t.getData(0);
+		// System.out.println(st3.getName() + st3.getGrade());
+		// seqList.insert(seqList.size, t[0]);
+		int m = 0;
+		int k = seqList.size;
+		for (int j = 0; j < k; j++) {// 外循环，使前后比较排序执行足够多的次数
+			for (int i = 0; i < k - 1; i++) {// 内循环，使数组每次都能前后比较排序，但前面较大数需要多次比较排序才能移动到后面
+				Student st = (Student) seqList.getData(i);
+				Student st2 = (Student) seqList.getData(i + 1);
+				// Student st3 = (Student) seqList.getData(seqList.size - 1);
+				// System.out.println(st3.getGrade());
+				// System.out.println(st.getGrade() + " " + st2.getGrade() + " " + i);
+
+				if (st.getScore() > st2.getScore()) {
+
+					// seqList.insert(seqList.size, seqList.getData(i));
+					t.insert(m, seqList.getData(i));// 设定中间变量，用于交换前后两个元素
+					// Student st3 = (Student) t.getData(m);
+					// System.out.println(st3.getName());
+					t.insert((m + 1), seqList.getData(i + 1));
+					// Student st4 = (Student) t.getData(m);
+					// System.out.println(st4.getName());
+					// System.out.println(st3.getGrade());
+					seqList.delete(i);
+					seqList.insert(i, t.getData(m + 1));
+					seqList.delete(i + 1);
+					seqList.insert((i + 1), t.getData(m));
+					// seqList.delete(seqList.size - 1);
+					exchange = true;// 检查学生添加后顺序表中的学生信息是否还以成绩为序非递减排列。
+					m = m + 2;
+				}
+				// System.out.println(seqList.getData(seqList.size - 1));
+			}
+		}
+		System.out.println("添加/排序成功，现在全部显示出来");
+
+		for (int i = 0; i < seqList.size; i++) {
+			Student st = (Student) seqList.getData(i);
+			System.out.println(st.getName() + " " + st.getScore());
+		}
+		// return seqList;
+	}
+}
+
+
+
