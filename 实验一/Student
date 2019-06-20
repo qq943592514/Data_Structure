@@ -1,0 +1,17 @@
+public class Student {// 定义学生类Student
+	private String Name;
+	private double Score;
+
+	Student(String Name, double Score) {// 提供构造函数
+		this.Name = Name;
+		this.Score = Score;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public double getScore() {
+		return Score;
+	}
+}
